@@ -3,6 +3,7 @@
 //
 
 #include "UnitTestDriver.h"
+#include "CircularCharQueue.h"
 
 void *UnitTestDriver::multicoreThreadProcessorQueue(void *lp_param) {
     ThreadParamQueue *p_param = (ThreadParamQueue *)lp_param;
@@ -34,4 +35,57 @@ void UnitTestDriver::testQueue() {
         pthread_join(thread_id[i], NULL);
     }
     printf("Testing thread-safe queue...passed\n\n");
+}
+
+void UnitTestDriver::testCircularCharQueue() {
+    printf("Testing circular char queue...\n");
+
+    CircularCharQueue queue = CircularCharQueue(5);
+    // Should print "queue size: 5 - queue count: 0"
+    printf("queue size: %d - queue count: %d\n", queue.size(), queue.count());
+
+    queue.push('a');
+
+    // Should print "queue size: 5 - queue count: 1"
+    printf("queue size: %d - queue count: %d\n", queue.size(), queue.count());
+
+    queue.pop();
+
+    // Should print "queue size: 5 - queue count: 0"
+    printf("queue size: %d - queue count: %d\n", queue.size(), queue.count());
+
+    queue.push('a');
+    queue.push('b');
+    queue.push('c');
+    queue.push('d');
+    queue.push('f');
+    queue.push('g'); // should not be pushed
+
+    for (int i = 0; i < 3; i++) {
+        try {
+            printf("pop: %c\n", queue.pop());
+        } catch (int e) {
+            if (e == 10) printf("Queue is empty\n");
+        }
+    }
+    // pop: a b c
+    // remain: d f
+
+    queue.push('p');
+    queue.push('q');
+    queue.push('r');
+    queue.push('t');
+    // queue: d f p q r
+
+
+    for (int i = 0; i < 5; i++) {
+        try {
+            printf("pop: %c\n", queue.pop());
+        } catch (int e) {
+            if (e == 10) printf("Queue is empty\n");
+        }
+    }
+    // pop: d f p q r
+
+    printf("Testing circular char queue...passed\n");
 }

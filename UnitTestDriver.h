@@ -21,6 +21,7 @@ private:
     static void *multicoreThreadProcessorQueue(void *lp_param);
 public:
     void testQueue();
+    void testCircularCharQueue();
 
 };
 
