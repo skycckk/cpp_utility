@@ -3,4 +3,4 @@ project(cpp_utility)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(cpp_utility main.cpp WrapStdQueue.cpp WrapStdQueue.h)
+add_executable(cpp_utility main.cpp WrapStdQueue.cpp WrapStdQueue.h UnitTestDriver.cpp UnitTestDriver.h)
