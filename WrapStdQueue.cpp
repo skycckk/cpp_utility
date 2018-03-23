@@ -12,8 +12,9 @@ void WrapStdQueue::push(int v) {
 
 int WrapStdQueue::pop() {
     unique_lock<mutex> lock(mtx);
+    auto now = chrono::system_clock::now();
     while (my_queue.empty())
-        cv.wait(lock);
+        cv.wait_until(lock, now + chrono::seconds(1));
 
     int val = my_queue.front();
     my_queue.pop();
