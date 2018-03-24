@@ -22,6 +22,7 @@ private:
 public:
     void testQueue();
     void testCircularCharQueue();
+    void testBitManipulation();
 
 };
 

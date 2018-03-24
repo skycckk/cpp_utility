@@ -4,6 +4,7 @@
 
 #include "UnitTestDriver.h"
 #include "CircularCharQueue.h"
+#include "BitManipulation.h"
 
 void *UnitTestDriver::multicoreThreadProcessorQueue(void *lp_param) {
     ThreadParamQueue *p_param = (ThreadParamQueue *)lp_param;
@@ -88,4 +89,18 @@ void UnitTestDriver::testCircularCharQueue() {
     // pop: d f p q r
 
     printf("Testing circular char queue...passed\n");
+}
+
+void UnitTestDriver::testBitManipulation() {
+    printf("Testing bit manipulation...passed\n");
+    BitManipulation bit_test = BitManipulation();
+
+    const int n = 5;
+    int input[n] = {1123444, 111, 66612345, 443333444, 0};
+    for (int i = 0; i < n; i++) {
+        int output = bit_test.longestContinuousDigit(input[i]);
+        printf("input: %d -> output: %d\n", input[i], output);
+    }
+
+    printf("Testing bit manipulation...passed\n");
 }
