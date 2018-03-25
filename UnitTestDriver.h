@@ -23,7 +23,7 @@ public:
     void testQueue();
     void testCircularCharQueue();
     void testBitManipulation();
-
+    void testThread();
 };
 
 #endif //CPP_UTILITY_UNITTESTDRIVER_H

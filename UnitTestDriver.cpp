@@ -5,6 +5,7 @@
 #include "UnitTestDriver.h"
 #include "CircularCharQueue.h"
 #include "BitManipulation.h"
+#include "ThreadExample.h"
 
 void *UnitTestDriver::multicoreThreadProcessorQueue(void *lp_param) {
     ThreadParamQueue *p_param = (ThreadParamQueue *)lp_param;
@@ -103,4 +104,11 @@ void UnitTestDriver::testBitManipulation() {
     }
 
     printf("Testing bit manipulation...passed\n");
+}
+
+void UnitTestDriver::testThread() {
+    printf("Testing threading\n");
+    ThreadExample thread_ex = ThreadExample();
+    thread_ex.threadLocalStorageTestCase();
+    printf("Testing threading...passed\n");
 }
