@@ -93,7 +93,7 @@ void UnitTestDriver::testCircularCharQueue() {
 }
 
 void UnitTestDriver::testBitManipulation() {
-    printf("Testing bit manipulation...passed\n");
+    printf("Testing bit manipulation...\n");
     BitManipulation bit_test = BitManipulation();
 
     const int n = 5;
@@ -102,12 +102,26 @@ void UnitTestDriver::testBitManipulation() {
         int output = bit_test.longestContinuousDigit(input[i]);
         printf("input: %d -> output: %d\n", input[i], output);
     }
+    printf("Testing bit manipulation...passed\n\n");
 
-    printf("Testing bit manipulation...passed\n");
+    printf("Testing bit manipulation (operation)...\n");
+    int num = 15;
+    printf("Get 0x%08x bit0: 0x%08x\n", num, bit_test.getBit(num, 0));
+    printf("Get 0x%08x bit1: 0x%08x\n", num, bit_test.getBit(num, 1));
+    printf("Get 0x%08x bit2: 0x%08x\n", num, bit_test.getBit(num, 2));
+    printf("Get 0x%08x bit3: 0x%08x\n", num, bit_test.getBit(num, 3));
+    printf("Get 0x%08x bit4: 0x%08x\n", num, bit_test.getBit(num, 4));
+
+    printf("Set 0x%08x bit4 to 1: 0x%08x\n", num, bit_test.setBit(num, 4));
+    printf("Clear 0x%08x bit2 to 0: 0x%08x\n", num, bit_test.clearBit(num, 2));
+    printf("Update 0x%08x bit7 to 1: 0x%08x\n", num, bit_test.updateBit(num, 7, 1));
+    printf("Update 0x%08x bit0 to 0: 0x%08x\n", num, bit_test.updateBit(num, 0, 0));
+
+    printf("Testing bit manipulation (operation)...passed\n");
 }
 
 void UnitTestDriver::testThread() {
-    printf("Testing threading\n");
+    printf("Testing threading...\n");
     ThreadExample thread_ex = ThreadExample();
     thread_ex.threadLocalStorageTestCase();
     printf("Testing threading...passed\n");

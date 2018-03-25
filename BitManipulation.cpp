@@ -29,3 +29,19 @@ int BitManipulation::longestContinuousDigit(int n) {
 
     return res;
 }
+
+int BitManipulation::setBit(int num, int i) {
+    return num | (1 << i);
+}
+
+bool BitManipulation::getBit(int num, int i) {
+    return ((1 << i) & num) != 0;
+}
+
+int BitManipulation::clearBit(int num, int i) {
+    return num & ~(1 << i);
+}
+int BitManipulation::updateBit(int num, int i, bool bit) {
+    int v = bit ? 1 : 0;
+    return clearBit(num, i) | (v << i);
+}
