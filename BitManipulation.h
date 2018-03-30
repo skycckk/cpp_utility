@@ -13,6 +13,11 @@ public:
     bool getBit(int num, int i);
     int clearBit(int num, int i);
     int updateBit(int num, int i, bool bit);
+    int insertion(int m, int n, int j, int i);
+    int flipBitToWin(int num);
+    void nextNumber(int num, int &smallest, int &largest);
+    int bitSwapRequired(int a, int b);
+    int swapOddEvenBits(int x);
 };
 
 #endif //CPP_UTILITY_BITMANIPULATION_H
