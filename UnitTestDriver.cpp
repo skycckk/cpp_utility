@@ -126,6 +126,15 @@ void UnitTestDriver::testThread() {
     ThreadExample thread_ex = ThreadExample();
     thread_ex.threadLocalStorageTestCase();
     printf("Testing threading...passed\n");
+}
+
+void UnitTestDriver::testAlgorithm() {
+    printf("Testing algorithm (reverse string)...\n");
+    char str[128] = "hello, world!!";
+    printf("old str: %s\n", str);
+    reverse(str);
+    printf("new str: %s\n", str);
+}
 
 void UnitTestDriver::testMemory() {
     MemoryUtility mem = MemoryUtility();
@@ -134,4 +143,19 @@ void UnitTestDriver::testMemory() {
     mem.my_memcpy(str + 10, str, 11);
     printf(" after memcpy: %s\n", str);
 }
+
+void UnitTestDriver::reverse(char *str) {
+    if (str == NULL) return;
+    int n = 0;
+    char *p_str = str;
+    while (*p_str != '\0') {
+        n++;
+        p_str++;
+    }
+
+    for (int i = 0; i < n / 2; i++) {
+        char tmp = str[i];
+        str[i] = str[n - 1 - i];
+        str[n - 1 - i] = tmp;
+    }
 }

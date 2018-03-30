@@ -10,6 +10,7 @@
 
 class UnitTestDriver {
 private:
+    void reverse(char *str);
     struct ThreadParamQueue {
         int id;
         WrapStdQueue *p_queue;
@@ -24,6 +25,7 @@ public:
     void testCircularCharQueue();
     void testBitManipulation();
     void testThread();
+    void testAlgorithm();
     void testMemory();
 };
 
