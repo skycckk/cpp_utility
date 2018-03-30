@@ -117,8 +117,23 @@ void UnitTestDriver::testBitManipulation() {
     printf("Clear 0x%08x bit2 to 0: 0x%08x\n", num, bit_test.clearBit(num, 2));
     printf("Update 0x%08x bit7 to 1: 0x%08x\n", num, bit_test.updateBit(num, 7, 1));
     printf("Update 0x%08x bit0 to 0: 0x%08x\n", num, bit_test.updateBit(num, 0, 0));
+    printf("Testing bit manipulation (operation)...passed\n\n");
 
-    printf("Testing bit manipulation (operation)...passed\n");
+    printf("Testing bit manipulation (problems)...\n");
+    printf("Insertion test: 0x%08x\n", bit_test.insertion(0x13, 0x400, 6, 2));
+    printf("Flip Bit to Win(1775): %d\n", bit_test.flipBitToWin(1775));
+    num = 5;
+    int next_smallest = 0;
+    int next_largest = 0;
+    bit_test.nextNumber(num, next_smallest, next_largest);
+    printf("Next Number of %d: smallest %d and largest %d\n", num, next_smallest, next_largest);
+
+    int num1 = 29;
+    int num2 = 15;
+    printf("Bits to equal(%d, %d): %d\n", num1, num2, bit_test.bitSwapRequired(num1, num2));
+    printf("Swap odd and even of 27: %d\n", bit_test.swapOddEvenBits(27));
+
+    printf("Testing bit manipulation (problems)...passed\n");
 }
 
 void UnitTestDriver::testThread() {
