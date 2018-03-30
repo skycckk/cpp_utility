@@ -6,6 +6,7 @@
 #include "CircularCharQueue.h"
 #include "BitManipulation.h"
 #include "ThreadExample.h"
+#include "MemoryUtility.h"
 
 void *UnitTestDriver::multicoreThreadProcessorQueue(void *lp_param) {
     ThreadParamQueue *p_param = (ThreadParamQueue *)lp_param;
@@ -125,4 +126,12 @@ void UnitTestDriver::testThread() {
     ThreadExample thread_ex = ThreadExample();
     thread_ex.threadLocalStorageTestCase();
     printf("Testing threading...passed\n");
+
+void UnitTestDriver::testMemory() {
+    MemoryUtility mem = MemoryUtility();
+    char str[] = "memmove can be very useful......";
+    printf("before memcpy: %s\n", str);
+    mem.my_memcpy(str + 10, str, 11);
+    printf(" after memcpy: %s\n", str);
+}
 }
