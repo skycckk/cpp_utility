@@ -13,6 +13,7 @@ private:
     void reverse(char *str);
     void partitionArray(int *arr, int n, int target);
     void partitionArrayInplace(int *arr, int n, int target);
+    int arrangeZeorsAndCountNonZeros(int *nums, int n);
     struct ThreadParamQueue {
         int id;
         WrapStdQueue *p_queue;

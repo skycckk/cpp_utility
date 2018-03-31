@@ -14,6 +14,14 @@ void my_swap(int *num, int i, int j) {
     num[j] ^= num[i];
     num[i] ^= num[j];
 }
+
+template <class T>
+void my_swap(T &v1, T &v2) {
+    v1 ^= v2;
+    v2 ^= v1;
+    v1 ^= v2;
+}
+
 void *UnitTestDriver::multicoreThreadProcessorQueue(void *lp_param) {
     ThreadParamQueue *p_param = (ThreadParamQueue *)lp_param;
     int id = p_param->id;
@@ -169,6 +177,15 @@ void UnitTestDriver::testAlgorithm() {
     for (int i = 0; i < 7; i++) printf("%d ", nums2[i]);
     printf("\n");
 
+
+    int nums3[10] = {1, 5, 1, 0, 1, 9, 3, 4, 0, 0};
+    printf("original                : ");
+    for (int i = 0; i < 10; i++) printf("%d ", nums3[i]);
+    printf("\n");
+    int non_zeros = arrangeZeorsAndCountNonZeros(nums3, 10);
+    printf("put all zeros to the end: ");
+    for (int i = 0; i < 10; i++) printf("%d ", nums3[i]);
+    printf("\nNon-zeros: %d\n", non_zeros);
 }
 
 void UnitTestDriver::testMemory() {
@@ -200,6 +217,7 @@ void UnitTestDriver::reverse(char *str) {
         str[i] = str[n - 1 - i];
         str[n - 1 - i] = tmp;
     }
+}
 
 void UnitTestDriver::partitionArray(int *arr, int n, int target) {
     if (arr == NULL) return;
@@ -241,4 +259,19 @@ void UnitTestDriver::partitionArrayInplace(int *arr, int n, int target) {
     if (arr[i] > target) my_swap(arr, i - 1, index);
     else my_swap(arr, index, i);
 }
+
+int UnitTestDriver::arrangeZeorsAndCountNonZeros(int *nums, int n) {
+    // put all zeros to the end and count the non-zeros
+    printf("--[arrangeZeorsAndCountNonZeros]--\n");
+    if (nums == NULL) return 0;
+    int i = 0;
+    int j = n - 1;
+    while (i < j) {
+        if (nums[i] == 0) {
+            my_swap(nums[i], nums[j--]);
+        } else {
+            i++;
+        }
+    }
+    return i == 0 ? 0 : i + 1;
 }
