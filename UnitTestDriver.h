@@ -27,6 +27,7 @@ public:
     void testThread();
     void testAlgorithm();
     void testMemory();
+    void testFile();
 };
 
 #endif //CPP_UTILITY_UNITTESTDRIVER_H

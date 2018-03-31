@@ -7,6 +7,7 @@
 #include "BitManipulation.h"
 #include "ThreadExample.h"
 #include "MemoryUtility.h"
+#include "FileUtility.h"
 
 void *UnitTestDriver::multicoreThreadProcessorQueue(void *lp_param) {
     ThreadParamQueue *p_param = (ThreadParamQueue *)lp_param;
@@ -157,6 +158,13 @@ void UnitTestDriver::testMemory() {
     printf("before memcpy: %s\n", str);
     mem.my_memcpy(str + 10, str, 11);
     printf(" after memcpy: %s\n", str);
+}
+
+void UnitTestDriver::testFile() {
+    FileUtility file_utility;
+    char file_path[256];
+    cin >> file_path;
+    file_utility.tail(file_path, 5);
 }
 
 void UnitTestDriver::reverse(char *str) {
