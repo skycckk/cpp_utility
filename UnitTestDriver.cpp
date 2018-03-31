@@ -9,6 +9,11 @@
 #include "MemoryUtility.h"
 #include "FileUtility.h"
 
+void my_swap(int *num, int i, int j) {
+    num[i] ^= num[j];
+    num[j] ^= num[i];
+    num[i] ^= num[j];
+}
 void *UnitTestDriver::multicoreThreadProcessorQueue(void *lp_param) {
     ThreadParamQueue *p_param = (ThreadParamQueue *)lp_param;
     int id = p_param->id;
@@ -150,6 +155,20 @@ void UnitTestDriver::testAlgorithm() {
     printf("old str: %s\n", str);
     reverse(str);
     printf("new str: %s\n", str);
+
+
+    int nums[7] =  {1,5,2,3,4,8,7};
+    int nums2[7] = {1,5,2,3,4,8,7};
+    for (int i = 0; i < 7; i++) printf("%d ", nums[i]);
+    printf("\n");
+    partitionArray(nums, 7, 5);
+    for (int i = 0; i < 7; i++) printf("%d ", nums[i]);
+    printf("\n");
+
+    partitionArrayInplace(nums2, 7, 5);
+    for (int i = 0; i < 7; i++) printf("%d ", nums2[i]);
+    printf("\n");
+
 }
 
 void UnitTestDriver::testMemory() {
@@ -181,4 +200,45 @@ void UnitTestDriver::reverse(char *str) {
         str[i] = str[n - 1 - i];
         str[n - 1 - i] = tmp;
     }
+
+void UnitTestDriver::partitionArray(int *arr, int n, int target) {
+    if (arr == NULL) return;
+    int i = 0;
+    int j = n - 1;
+    // use O(n) space as dst
+    int *tmp = (int *)malloc(n * sizeof(int));
+    for (int curr = 0; curr < n; curr++) {
+        if (arr[curr] > target) tmp[j--] = arr[curr];
+        else if (arr[curr] < target) tmp[i++] = arr[curr];
+    }
+    // if i > j, means target was not found
+    // if i == j, target was found and only one
+    // if i < j, has multiple targets
+    while (i <= j) tmp[i++] = target;
+    memcpy(arr, tmp, n * sizeof(int));
+
+    free(tmp);
+}
+
+void UnitTestDriver::partitionArrayInplace(int *arr, int n, int target) {
+    if (arr == NULL) return;
+    // do a partial partition sort except for the pivot is an arbitrary number.
+    // note that if there are multiple targets, then the order is not guaranteed.
+
+    int index = 0;
+    int j = n - 1;
+    int i = 0;
+    while (i < j) {
+        if (arr[i] > target) {
+            my_swap(arr, i, j);
+            j--;
+        } else {
+            if (target == arr[i]) index = i;
+            i++;
+        }
+    }
+
+    if (arr[i] > target) my_swap(arr, i - 1, index);
+    else my_swap(arr, index, i);
+}
 }

@@ -11,6 +11,8 @@
 class UnitTestDriver {
 private:
     void reverse(char *str);
+    void partitionArray(int *arr, int n, int target);
+    void partitionArrayInplace(int *arr, int n, int target);
     struct ThreadParamQueue {
         int id;
         WrapStdQueue *p_queue;
