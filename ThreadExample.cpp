@@ -57,6 +57,24 @@ void ThreadExample::producer() {
         this_thread::sleep_for(chrono::seconds(1));
         count--;
     }
+
+    /*
+     * Another view while using semaphore on producer-consumer scheme
+     * SHARED RESOURCES:
+     * int in, out = 0
+     * char buf[];
+     * semaphore lock = 1
+     * semaphore chars = 0, space = N
+     *
+     * produce(char c) {
+     *     wait(space);
+     *     wait(lock);
+     *     buf[in] = c;
+     *     in = (in + 1) % N;
+     *     signal(lock);
+     *     signal(chars);
+     * }
+     */
 }
 
 void ThreadExample::consumer() {
@@ -70,4 +88,17 @@ void ThreadExample::consumer() {
             this_thread::sleep_for(chrono::milliseconds(100));
         }
     }
+
+    /*
+     * Another view while using semaphore on producer-consumer scheme
+     * char consume() {
+     *     wait(chars);
+     *     wait(lock);
+     *     char c = buf[out];
+     *     out = (out + 1) % N;
+     *     signal(lock);
+     *     signal(spaces);
+     *     return c;
+     * }
+     */
 }
