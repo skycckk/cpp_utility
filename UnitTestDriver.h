@@ -31,6 +31,7 @@ public:
     void testAlgorithm();
     void testMemory();
     void testFile();
+    void testHash();
 };
 
 #endif //CPP_UTILITY_UNITTESTDRIVER_H

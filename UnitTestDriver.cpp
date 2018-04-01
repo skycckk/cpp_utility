@@ -8,6 +8,7 @@
 #include "ThreadExample.h"
 #include "MemoryUtility.h"
 #include "FileUtility.h"
+#include "HashMap.h"
 
 void my_swap(int *num, int i, int j) {
     num[i] ^= num[j];
@@ -201,6 +202,29 @@ void UnitTestDriver::testFile() {
     char file_path[256];
     cin >> file_path;
     file_utility.tail(file_path, 5);
+}
+
+void UnitTestDriver::testHash() {
+    HashMap map = HashMap(100);
+    int val = -1;
+    map.put(1, 100); printf("[HashMap] PUT(%d): %d\n", 1, 100);
+    val = map.get(1); printf("[HashMap] GET(%d): %d\n", 1, val);
+
+    map.put(2, 200); printf("[HashMap] PUT(%d): %d\n", 2, 200);
+    val = map.get(2); printf("[HashMap] GET(%d): %d\n", 2, val);
+
+    map.put(3, 300); printf("[HashMap] PUT(%d): %d\n", 3, 300);
+    val = map.get(3); printf("[HashMap] GET(%d): %d\n", 3, val);
+
+    map.put(1, 400); printf("[HashMap] PUT(%d): %d\n", 1, 400);
+    val = map.get(1); printf("[HashMap] GET(%d): %d\n", 1, val);
+
+    map.remove(2); printf("[HashMap] Remove(%d)\n", 2);
+
+    map.put(101, 500); printf("[HashMap] PUT(%d): %d\n", 101, 500);
+    val = map.get(1); printf("[HashMap] GET(%d): %d\n", 1, val);
+    val = map.get(101); printf("[HashMap] GET(%d): %d\n", 101, val);
+    val = map.get(2); printf("[HashMap] GET(%d): %d\n", 2, val);
 }
 
 void UnitTestDriver::reverse(char *str) {
