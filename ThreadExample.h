@@ -15,9 +15,14 @@ class ThreadExample {
         }
     };
 
+    static void producer();
+    static void consumer();
+
 public:
     void threadLocalStorageTestCase();
     static void *multicoreProcessor(void *lp_param);
+
+    void producerConsumerTest();
 };
 
 #endif //CPP_UTILITY_THREADEXAMPLE_H

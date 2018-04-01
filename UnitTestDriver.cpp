@@ -155,6 +155,7 @@ void UnitTestDriver::testThread() {
     printf("Testing threading...\n");
     ThreadExample thread_ex = ThreadExample();
     thread_ex.threadLocalStorageTestCase();
+    thread_ex.producerConsumerTest();
     printf("Testing threading...passed\n");
 }
 
