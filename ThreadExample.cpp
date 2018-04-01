@@ -6,6 +6,7 @@
 #include <iostream>
 #include <thread>
 #include <queue>
+#include <condition_variable>
 
 #define NUM_THREAD 4
 
@@ -13,6 +14,7 @@ using namespace std;
 
 deque<int> g_deque;
 mutex mu;
+condition_variable cond;
 
 __thread int g_count = 0;
 void* ThreadExample::multicoreProcessor(void *lp_param) {
@@ -56,6 +58,7 @@ void ThreadExample::producer() {
         g_deque.push_front(count);
         this_thread::sleep_for(chrono::seconds(1));
         count--;
+        cond.notify_one();
     }
 
     /*
@@ -81,12 +84,13 @@ void ThreadExample::consumer() {
     int data = 0;
     while (data != 1) {
         unique_lock<mutex> lock(mu);
-        if (!g_deque.empty()) {
-            data = g_deque.back();
-            g_deque.pop_back();
-            printf("t2 got a value from t1: %d\n", data);
-            this_thread::sleep_for(chrono::milliseconds(100));
-        }
+        while (g_deque.empty())
+            cond.wait(lock);
+
+        data = g_deque.back();
+        g_deque.pop_back();
+        printf("t2 got a value from t1: %d\n", data);
+        this_thread::sleep_for(chrono::milliseconds(100));
     }
 
     /*
