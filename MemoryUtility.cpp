@@ -30,25 +30,23 @@ int** MemoryUtility::my2DAlloc(int rows, int cols) {
 }
 
 void* MemoryUtility::my_memcpy(void *dst, void *src, size_t n) {
-    char *c_src = NULL;
-    char *c_dst = NULL;
-    if (n >= 4) {
+    char *c_src = (char *)src;
+    char *c_dst = (char *)dst;
+    int int_size = sizeof(int);
+    if (n >= int_size) {
         int *i_src = (int *)src;
         int *i_dst = (int *)dst;
+        int align_end = n & ~(int_size - 1);
         if ((size_t)i_dst < (size_t)i_src) {
-            int i = 0;
-            for (; i < n / 4; i++) i_dst[i] = i_src[i];
-            int rem = n - i * 4;
-            c_src = (char *)(i_src + i);
-            c_dst = (char *)(i_dst + i);
-            for (int i = 0; i < rem; i++) c_dst[i] = c_src[i];
+            for (int i = 0; i < n / int_size; i++) i_dst[i] = i_src[i];
+            for (int i = align_end; i < n; i++) c_dst[i] = c_src[i];
         } else {
-            c_src = (char *)src;
-            c_dst = (char *)dst;
-            int end = n & ~3;
-            for (int i = n - 1; i >= end; i--) c_dst[i] = c_src[i];
-            for (int i = end / 4 - 1; i >= 0; i--) i_dst[i] = i_src[i];
+            for (int i = n - 1; i >= align_end; i--) c_dst[i] = c_src[i];
+            for (int i = 0; i < n / int_size; i++) i_dst[i] = i_src[i];
         }
+    } else {
+        if ((size_t)dst < (size_t)src)  for (int i = 0; i < n; i++) c_dst[i] = c_src[i];
+        else for (int i = n - 1; i >= 0; i--) c_dst[i] = c_src[i];
     }
 
     return c_dst;
